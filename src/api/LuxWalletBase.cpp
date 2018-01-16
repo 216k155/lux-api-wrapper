@@ -1,10 +1,3 @@
-/*
- * LuxWalletBase.cpp
- *
- *  Created on: Jun 2, 2014
- *      Author: luxcore
- */
-
 #include <stdexcept>
 #include "LuxWallet.h"
 #include "LuxException.h"
@@ -18,8 +11,8 @@ using std::string;
 
 
 LuxAPI::LuxAPI() {
- 	conn = {};
- }
+	conn = {};
+}
 
 LuxAPI::LuxAPI(const string& user, const string& password, const string& host, int port){
 	conn.user = user;
@@ -30,8 +23,8 @@ LuxAPI::LuxAPI(const string& user, const string& password, const string& host, i
 }
 
 bool LuxAPI::IsInit(){
- 	return !(conn.user.empty() || conn.password.empty() || conn.host.empty() || conn.port == 0);
- }
+	return !(conn.user.empty() || conn.password.empty() || conn.host.empty() || conn.port == 0);
+}
 
 string LuxAPI::NumberToString (int number){
 	std::ostringstream ss;
