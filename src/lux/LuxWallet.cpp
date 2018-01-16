@@ -365,6 +365,14 @@ double LuxAPI::getbalance(const string& account, int minconf) {
 	return result.asDouble();
 }
 
+double LuxAPI::getunconfirmedbalance() {
+ 	string command = "getunconfirmedbalance";
+ 	Value params, result;
+ 	result = sendcommand(command, params);
+ 
+ 	return result.asDouble();
+ }
+
 double LuxAPI::getreceivedbyaccount(const string& account, int minconf) {
 	string command = "getreceivedbyaccount";
 	Value params, result;
@@ -763,7 +771,7 @@ vector<unspenttxout_t> LuxAPI::listunspent(int minconf, int maxconf) {
 		unspenttxout_t tmp;
 
 		tmp.txid = val["txid"].asString();
-		tmp.n = val["vout"].asInt();
+		tmp.n = val["vout"].asUInt();
 		tmp.address = val["address"].asString();
 		tmp.account = val["account"].asString();
 		tmp.scriptPubKey = val["scriptPubKey"].asString();
@@ -787,7 +795,7 @@ vector<txout_t> LuxAPI::listlockunspent() {
 		txout_t tmp;
 
 		tmp.txid = val["txid"].asString();
-		tmp.n = val["vout"].asInt();
+		tmp.n = val["vout"].asUInt();
 		ret.push_back(tmp);
 	}
 
@@ -1011,7 +1019,7 @@ getrawtransaction_t LuxAPI::getrawtransaction(const string& txid, int verbose) {
 			Value val = (*it);
 			vin_t input;
 			input.txid = val["txid"].asString();
-			input.n = val["vout"].asInt();
+			input.n = val["vout"].asUInt();
 			input.scriptSig.assm = val["scriptSig"]["asm"].asString();
 			input.scriptSig.hex = val["scriptSig"]["hex"].asString();
 			input.sequence = val["sequence"].asUInt();
@@ -1024,7 +1032,7 @@ getrawtransaction_t LuxAPI::getrawtransaction(const string& txid, int verbose) {
 			vout_t output;
 
 			output.value = val["value"].asDouble();
-			output.n = val["n"].asInt();
+			output.n = val["n"].asUInt();
 			output.scriptPubKey.assm = val["scriptPubKey"]["asm"].asString();
 			output.scriptPubKey.hex = val["scriptPubKey"]["hex"].asString();
 			output.scriptPubKey.reqSigs = val["scriptPubKey"]["reqSigs"].asInt();
@@ -1062,7 +1070,7 @@ decoderawtransaction_t LuxAPI::decoderawtransaction(const string& hexString) {
 		Value val = (*it);
 		vin_t input;
 		input.txid = val["txid"].asString();
-		input.n = val["vout"].asInt();
+		input.n = val["vout"].asUInt();
 		input.scriptSig.assm = val["scriptSig"]["asm"].asString();
 		input.scriptSig.hex = val["scriptSig"]["hex"].asString();
 		input.sequence = val["sequence"].asUInt();
@@ -1075,7 +1083,7 @@ decoderawtransaction_t LuxAPI::decoderawtransaction(const string& hexString) {
 		vout_t output;
 
 		output.value = val["value"].asDouble();
-		output.n = val["n"].asInt();
+		output.n = val["n"].asUInt();
 		output.scriptPubKey.assm = val["scriptPubKey"]["asm"].asString();
 		output.scriptPubKey.hex = val["scriptPubKey"]["hex"].asString();
 		output.scriptPubKey.reqSigs = val["scriptPubKey"]["reqSigs"].asInt();

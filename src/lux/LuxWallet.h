@@ -30,6 +30,7 @@ public:
 	LuxAPI();
 	LuxAPI(const std::string& user, const std::string& password, const std::string& host, int port);
 
+    bool IsInit();
 
 	/* === Auxiliary functions === */
 	Json::Value sendcommand(const std::string& command, const Json::Value& params);
@@ -75,6 +76,7 @@ public:
 	/* === Accounting === */
 	double getbalance();
 	double getbalance(const std::string& account, int minconf = 1);
+    double getunconfirmedbalance();
 
 	double getreceivedbyaccount(const std::string& account, int minconf = 1);
 	double getreceivedbyaddress(const std::string& luxaddress, int minconf = 1);
